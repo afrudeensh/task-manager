@@ -1,5 +1,6 @@
 package com.taskmanager.task_manager.dto.response;
 
+import com.taskmanager.task_manager.entity.User;
 import com.taskmanager.task_manager.enums.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

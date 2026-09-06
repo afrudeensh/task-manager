@@ -1,69 +1,41 @@
 package com.taskmanager.task_manager.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseResponse<T> {
 
-    private boolean success;
-    private String message;
-    private T data;
-    private LocalDateTime timestamp;
+    private final boolean success;
+    private final int status;
+    private final String message;
+    private final T data;
+    private final LocalDateTime timestamp;
 
-    public BaseResponse() {
-        this.timestamp = LocalDateTime.now();
-    }
-
-    private BaseResponse(boolean success, String message, T data) {
+    private BaseResponse(boolean success, int status, String message, T data) {
         this.success = success;
+        this.status = status;
         this.message = message;
         this.data = data;
         this.timestamp = LocalDateTime.now();
     }
 
-    public static <T> BaseResponse<T> success(String message, T data) {
-        return new BaseResponse<>(true, message, data);
+    public static <T> BaseResponse<T> success(T data) {
+        return new BaseResponse<>(true, 200, "Success", data);
     }
 
-    public static <T> BaseResponse<T> success(String message) {
-        return new BaseResponse<>(true, message, null);
+    public static <T> BaseResponse<T> success(T data, String message) {
+        return new BaseResponse<>(true, 200, message, data);
     }
 
-    public static <T> BaseResponse<T> error(String message) {
-        return new BaseResponse<>(false, message, null);
+    public static <T> BaseResponse<T> created(T data, String message) {
+        return new BaseResponse<>(true, 201, message, data);
     }
 
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(LocalDateTime timestamp) {
-        this.timestamp = timestamp;
+    public static <T> BaseResponse<T> error(int status, String message) {
+        return new BaseResponse<>(false, status, message, null);
     }
 }
