@@ -1,3 +1,24 @@
 spring:
   application:
     name: task-manager
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/task_manager_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+jwt:
+  secret: "ReplaceThisWithAVeryLongRandomBase64EncodedSecretKeyForJWTSigning123456"
+  expiration-ms: 86400000   # 24 hours
+
+logging:
+  level:
+    com.digitalwallet: DEBUG
