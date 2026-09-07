@@ -75,6 +75,11 @@ public class AuthServiceImpl implements AuthService {
         }
 
         userMapper.updateEntity(user, request);
+
+        if (request.getPassword() != null && !request.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+
         User saved = userRepository.save(user);
 
         return userMapper.toResponse(saved);
